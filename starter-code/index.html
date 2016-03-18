@@ -4,25 +4,46 @@
         <title>Fruit and Veggies</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+        <script src="js/angular-flash.min.js"></script>
+        <!-- <script src="js/fruit_and_veggies.js"></script> -->
         <script src="js/fruit_and_veggies_test.js"></script>
         <script src="js/app.js"></script>
     </head>
-    <body>
-        <div class="container">
-            <h1>Fruit and Veggies</h1>
+    <body ng-app='FruitVsVeggie'>
+
+        <div class="container" ng-controller='ListCtrl'>
+            <h1 class='text-center'>Fruit and Veggies</h1>
             <div class="row">
                 <div class="col-sm-4">
-                    col 1
+                    <h2 class='text-center'>Fruits</h2>
+                    <div  ng-repeat='fruit in fruitList track by $index' class='well text-center' ng-class="fruitClass[$index]">
+                        {{ fruit }}
+                        <button ng-click='addVeggie(fruit, $index)' class='glyphicon glyphicon-chevron-right'></button>
+                    </div>
                 </div>
+
                 <div class="col-sm-4">
-                    col 2
+                    <h2 class='text-center'>Pool</h2>
+
+                    <flash-message show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+
+                    <div ng-repeat='food in poolList track by $index' class='well text-center'>
+                        <button ng-click='addFruit(food, $index)' class='glyphicon glyphicon-chevron-left'></button>
+                        {{food}}
+                        <button ng-click='addVeggie(food, $index)' class='glyphicon glyphicon-chevron-right'></button>
+                    </div>
                 </div>
+
                 <div class="col-sm-4">
-                    col 3
+                    <h2 class='text-center'>Veggies</h2>
+                    <div ng-repeat='veggie in veggieList track by $index' class='well text-center' ng-class="veggieClass[$index]">
+                        <button ng-click='addFruit(veggie, $index)' class='glyphicon glyphicon-chevron-left'></button>
+                        {{ veggie }}
+                    </div>
                 </div>                        
             </div>
         </div>
+
     </body>
 </html>
